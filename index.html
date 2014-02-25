@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Seu Primeiro Jogo - HTML5</title>
+        <title>Jogo - HTML5</title>
 		<style type="text/css">
     		canvas {
         		border: 1px solid #000000;
@@ -13,7 +13,7 @@
             Navegador não suporta HTML5
         </canvas>
 		<script type="text/javascript">
-				var barraAltura, barraLargura, jogadorPosicaoX, velocidadeJogador, diametroBola, bolaPosX, bolaPosY, velocidadeBola, pontosJogador, colisao;
+				var barraAltura, barraLargura, jogadorPosicaoX, velocidadeJogador, diametroBola, bolaPosX, bolaPosY, velocidadeBola, pontosJogador, colisao, refreshIntervalId;
 				function inicializar() {
 					colisao = false;
 					pontosJogador = 0;
@@ -27,13 +27,13 @@
 					diametroBola = 10;
 					bolaPosX = canvas.width / 2;
 					bolaPosY = -10;
-					velocidadeBola = 10;
+					velocidadeBola = 4;
 				 
 					canvas = document.getElementById("canvas");
 					context = canvas.getContext("2d");
 				 
 					document.addEventListener('keydown', keyDown);
-					setInterval(gameLoop, 30);
+					refreshIntervalId = setInterval(gameLoop, 30);
 				}
 
 				function keyDown(e) {
@@ -47,6 +47,9 @@
 						if(jogadorPosicaoX < (canvas.width - barraLargura)) {
 							jogadorPosicaoX += velocidadeJogador;
 						}
+					}
+					if(e.keyCode == 13) {
+						inicializar();
 					}
 				}
 
@@ -65,14 +68,25 @@
 					}
 					if((bolaPosX > jogadorPosicaoX && bolaPosX < jogadorPosicaoX + barraLargura) && bolaPosY >= canvas.height - barraAltura && colisao == false) {
 						pontosJogador++;
+						if(((pontosJogador % 10) == 0) && pontosJogador > 0){
+							velocidadeBola += 2;
+						}
 						colisao = true;
+					} 
+					if(bolaPosY >= canvas.height && colisao == false) {
+						pontosJogador--;
 					}
- 
-					context.font = "32pt Tahoma";
-					context.fillText(pontosJogador, canvas.width - 70, 50);
+					if(pontosJogador < 0) {
+						context.clearRect(0 ,0 ,canvas.width, canvas.height);
+						context.font = "38pt Tahoma";
+						context.fillText("GAME OVER", (canvas.width - 300) / 2, canvas.height / 2);
+						clearInterval(refreshIntervalId);
+					} else {
+						context.font = "32pt Tahoma";
+						context.fillText(pontosJogador, canvas.width - 70, 50);
+					}
 				}
 		</script>
     </body>
-	
 </html>
 
