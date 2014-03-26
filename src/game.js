@@ -63,14 +63,14 @@ var barraAltura,
           bolaPosY = -10;
         colisao = false;
       }
-      if((bolaPosX > jogadorPosicaoX && bolaPosX < jogadorPosicaoX + barraLargura) && bolaPosY >= canvas.height - barraAltura && colisao == false) {
+      if((bolaPosX > jogadorPosicaoX && bolaPosX < jogadorPosicaoX + barraLargura) && bolaPosY >= canvas.height - barraAltura && colisao === false) {
         pontosJogador++;
-        if(((pontosJogador % 10) == 0) && pontosJogador > 0){
+        if(((pontosJogador % 10) === 0) && pontosJogador > 0){
           velocidadeBola += 2;
         }
         colisao = true;
       }
-      if(bolaPosY >= canvas.height && colisao == false) {
+      if(bolaPosY >= canvas.height && colisao === false) {
         pontosJogador--;
       }
       if(pontosJogador < 0) {
