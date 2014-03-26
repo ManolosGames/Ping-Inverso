@@ -11,7 +11,7 @@ var barraAltura,
     refreshIntervalId;
 
 
-    function inicializar() {
+    function Game() {
       colisao = false;
       pontosJogador = 0;
       barraAltura = 15;
